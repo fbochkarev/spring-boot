@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="headerfiles">
+        <meta charset="UTF-8"/>
+        <link th:href="@{/css/styles.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div th:fragment="header">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed"
+                                data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                                aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span
+                                    class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span
+                                    class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#" th:href="@{/index}">Home</a>
+                        <a class="navbar-brand" href="#" th:href="@{/profile}">Profile</a>
+                        <a class="navbar-brand" href="#" th:href="@{/admin/users}"
+                           th:if="${#request.isUserInRole('ROLE_ADMIN')}">Users
+                        </a>
+                        <a class="navbar-brand" href="#" th:href="@{/login}"
+                           th:if="${#request.getUserPrincipal() == null}">Login</a>
+                        <a class="navbar-brand" href="#" th:href="@{/logout}"
+                           th:if="${#request.getUserPrincipal() != null}">Logout
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <br>
+            <br>
+            <br>
+        </div>
+    </body>
+</html>

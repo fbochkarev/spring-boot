@@ -1,0 +1,1 @@
+INSERT INTO jm_db.roles VALUES (1, 'ROLE_USER');
