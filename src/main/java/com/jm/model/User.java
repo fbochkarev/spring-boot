@@ -27,9 +27,14 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH,
+            CascadeType.DETACH})
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
     public User() {

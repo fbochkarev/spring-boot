@@ -1,7 +1,5 @@
 package com.jm.web.controller;
 
-import com.jm.dao.RoleDao;
-import com.jm.dao.RoleDaoImpl;
 import com.jm.model.Role;
 import com.jm.model.User;
 import com.jm.service.RoleService;
@@ -30,7 +28,8 @@ public class HelloController {
 
     @GetMapping("/admin/users")
     public String userList(Model model) {
-        model.addAttribute("users", userService.listUsers());
+        List<User> users = userService.listUsers();
+        model.addAttribute("users", users);
 //        System.out.println(getClass() + " - userList - " + userService.listUsers());
         return "users";
     }
@@ -91,7 +90,7 @@ public class HelloController {
     }
 
     @GetMapping("/admin/deleteUser/{id}")
-    public String deleteUser(@PathVariable (value = "id") long id) {
+    public String deleteUser(@PathVariable(value = "id") long id) {
         // call delete user method
         this.userService.removeUser(id);
         return "redirect:/admin/users";

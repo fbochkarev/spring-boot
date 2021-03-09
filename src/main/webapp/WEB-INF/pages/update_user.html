@@ -18,15 +18,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h1>New user</h1>
+            <h1>Update user</h1>
 
             <form action="#" th:action="@{/admin/saveUser}" modelAttribute="user" th:object="${user}"
                   method="POST">
+                <input type="hidden" th:field="*{id}">
                 <p><input type="text" th:field="*{username}"
                           placeholder="User Name" class="form-control mb-4 col-4"></p>
 
                 <p><input type="text" th:field="*{password}"
-                          placeholder="Password" class="form-control mb-4 col-4"></p>
+                          placeholder="New Password" class="form-control mb-4 col-4"></p>
 
                 <p><input type="text" th:field="*{lastName}"
                           placeholder="User Last Name" class="form-control mb-4 col-4"></p>
@@ -34,22 +35,21 @@
                 <p><input type="text" th:field="*{email}"
                           placeholder="User Email" class="form-control mb-4 col-4"></p>
 
-                <!--??????????, ??? field ??????? ? ??????????, ??? name -->
-                <select id="editRoles" th:field="*{roles}" multiple size="2" required
+                <select id="editRoles" name="roles" multiple size="2" required
                         class="form-control form-control-sm">
                     <option value="1">USER</option>
                     <option value="2">ADMIN</option>
                 </select>
 
 
-                <!--                <select id="editRoles" th:field="*{roles}" name="roles" multiple size="2" required
-                                        class="form-control form-control-sm">
-                                    <option th:each="initializeRoles:${roles}"
-                                            th:value="${initializeRoles.id}"
-                                            th:text="${initializeRoles.name}"
-                                    >
-                                    </option>
-                                </select>-->
+<!--                <select id="editRoles" th:field="*{rolesFromController}" name="roles" multiple size="2" required
+                        class="form-control form-control-sm">
+                    <option th:each="initializeRoles:${roles}"
+                            th:value="${initializeRoles.id}"
+                            th:text="${initializeRoles.name}"
+                    >
+                    </option>
+                </select>-->
 
                 <br>
                 <button type="submit" class="btn btn-info col-2"> Save User</button>
