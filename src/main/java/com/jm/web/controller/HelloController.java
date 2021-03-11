@@ -43,15 +43,17 @@ public class HelloController {
         return "profile";
     }
 
-/*    @ModelAttribute("roles")
+    @ModelAttribute("rolesFromController")
     public List<Role> initializeRoles(){
         return roleService.listRoles();
-    }*/
+    }
 
     @RequestMapping("/admin/new")
     public String newCustomerForm(Map<String, Object> model) {
         User user = new User();
         model.put("user", user);
+//        model.put("rolesFromController", roleService.listRoles());
+
         return "new_user";
     }
 
@@ -83,6 +85,7 @@ public class HelloController {
         // get user from the service
         User user = userService.getUserById(id);
         user.setPassword("");
+
         // set user as a model attribute to pre-populate the form
         model.addAttribute("user", user);
 //        model.addAttribute("rolesFromController", user.getRoles());

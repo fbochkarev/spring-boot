@@ -35,21 +35,14 @@
                 <p><input type="text" th:field="*{email}"
                           placeholder="User Email" class="form-control mb-4 col-4"></p>
 
+                <label for="editRoles"></label>
                 <select id="editRoles" name="roles" multiple size="2" required
-                        class="form-control form-control-sm">
-                    <option value="1">USER</option>
-                    <option value="2">ADMIN</option>
-                </select>
-
-
-<!--                <select id="editRoles" th:field="*{rolesFromController}" name="roles" multiple size="2" required
-                        class="form-control form-control-sm">
-                    <option th:each="initializeRoles:${roles}"
-                            th:value="${initializeRoles.id}"
-                            th:text="${initializeRoles.name}"
-                    >
+                                                       class="form-control form-control-sm">
+                    <option th:each="initializeRoles:${rolesFromController}"
+                            th:value="${initializeRoles.getId()}"
+                            th:text="${initializeRoles.getName()}">
                     </option>
-                </select>-->
+                </select>
 
                 <br>
                 <button type="submit" class="btn btn-info col-2"> Save User</button>
