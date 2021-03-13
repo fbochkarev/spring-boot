@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="update">
+
+    <!-- Modal -->
+    <div class="myForm">
+        <form th:action="@{/admin/saveUser}" method="POST">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id" value=""/>
+                            <div class="form-group">
+                                <label for="username" class="col-form-label">username:</label>
+                                <input type="text" class="form-control" id="username" name="username" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-form-label">password:</label>
+                                <input type="text" class="form-control" id="password" name="password" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="col-form-label">lastname:</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">email:</label>
+                                <input type="text" class="form-control" id="email" name="email" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="editRoles" class="col-form-label">roles:</label>
+                                <select id="editRoles" name="roles" multiple size="2" required
+                                        class="form-control">
+                                    <option th:each="initializeRoles:${rolesFromController}"
+                                            th:value="${initializeRoles.getId()}"
+                                            th:text="${initializeRoles.getName()}">
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:fragment="delete">
+
+    <!-- Modal -->
+    <div class="myFormDelete">
+        <form th:action="@{/admin/deleteUser/}" method="POST">
+            <div class="modal fade" id="exampleModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id" value=""/>
+                            <div class="form-group">
+                                <label for="username" class="col-form-label">username:</label>
+                                <input type="text" readonly class="form-control" id="username" name="username" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="col-form-label">lastname:</label>
+                                <input type="text" readonly class="form-control" id="lastName" name="lastName" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">email:</label>
+                                <input type="text" readonly class="form-control" id="email" name="email" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="roles" class="col-form-label">roles:</label>
+<!--                                    <input type="text" readonly class="form-control" id="roles" name="roles" value=""/>-->
+<!--                                    <label for="roles" class="col-form-label">roles:</label>-->
+                                    <select id="roles" readonly name="roles" multiple size="2" required
+                                            class="form-control">
+                                        <option th:each="initializeRoles:${rolesFromController}"
+                                                th:value="${initializeRoles.getId()}"
+                                                th:text="${initializeRoles.getName()}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-warning" value="Delete"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

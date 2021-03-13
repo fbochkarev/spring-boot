@@ -49,5 +49,4 @@ public class UserServiceImpl implements UserService {
     public UserDetails getUserByName(String username) {
         return userDao.getUserByName(username);
     }
-
 }

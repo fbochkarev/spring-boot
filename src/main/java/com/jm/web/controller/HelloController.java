@@ -29,6 +29,9 @@ public class HelloController {
     @GetMapping("/admin/users")
     public String userList(Model model) {
         List<User> users = userService.listUsers();
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("rolesFromController", roleService.listRoles());
         model.addAttribute("users", users);
 //        System.out.println(getClass() + " - userList - " + userService.listUsers());
         return "users";
@@ -38,27 +41,17 @@ public class HelloController {
     public String user(@AuthenticationPrincipal User user, Model model) {
         System.out.println(getClass().getName() + "- user -" + user);
         model.addAttribute("user", user);
-//        model.addAttribute("users", userService.listUsers());
-//        model.addAttribute("role", user.getRoles());
         return "profile";
     }
 
-/*    @ModelAttribute("roles")
-    public List<Role> initializeRoles(){
-        return roleService.listRoles();
-    }*/
-
-    @RequestMapping("/admin/new")
-    public String newCustomerForm(Map<String, Object> model) {
-        User user = new User();
-        model.put("user", user);
-        return "new_user";
+    @ModelAttribute("navbarUser")
+    public User initializeRoles(@AuthenticationPrincipal User navbarUser) {
+        return navbarUser;
     }
 
     @PostMapping("/admin/saveUser")
     public String saveUser(@ModelAttribute("user") User user, @RequestParam("roles") String[] rolesFromHtml) {
         // save user to database
-//        user.getRoles();
         System.out.println(getClass() + " - saveUserBefore - " + user);
         Set<Role> roleSet = user.getRoles();
         for (String roleId : rolesFromHtml) {
@@ -75,35 +68,29 @@ public class HelloController {
         // create model attribute to bind form data
         User user = new User();
         model.addAttribute("user", user);
+        model.addAttribute("rolesFromController", roleService.listRoles());
         return "new_user";
     }
 
     @GetMapping("/admin/showFormForUpdate/{id}")
-    public String showFormForUpdate(@PathVariable( value = "id") long id, Model model) {
+    public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
         // get user from the service
-        User user = userService.getUserById(id);
-        user.setPassword("");
-        // set user as a model attribute to pre-populate the form
-        model.addAttribute("user", user);
-//        model.addAttribute("rolesFromController", user.getRoles());
+        User userFromDB = userService.getUserById(id);
+        userFromDB.setPassword("");
+        model.addAttribute("userFromDB", userFromDB);
         return "update_user";
     }
 
-    @GetMapping("/admin/deleteUser/{id}")
-    public String deleteUser(@PathVariable(value = "id") long id) {
-        // call delete user method
-        this.userService.removeUser(id);
-        return "redirect:/admin/users";
+    @GetMapping("admin/findOne")
+    @ResponseBody
+    public User findOne(long id) {
+        return userService.getUserById(id);
     }
 
-    @RequestMapping(value = "hello", method = RequestMethod.GET)
-    public String printWelcome(ModelMap model) {
-        List<String> messages = new ArrayList<>();
-        messages.add("Hello!");
-        messages.add("I'm Spring MVC-SECURITY application");
-        messages.add("5.2.0 version by sep'19 ");
-        model.addAttribute("messages", messages);
-        return "hello";
+    @PostMapping("/admin/deleteUser")
+    public String deleteUser(@ModelAttribute("user") User user) {
+        userService.removeUser(user.getId());
+        return "redirect:/admin/users";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
