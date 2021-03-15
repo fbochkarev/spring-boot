@@ -111,16 +111,6 @@ public class User implements UserDetails {
         return roles;
     }
 
-/*    public void setRoles(String rolesFrom) {
-        List<String> roleIds = Arrays.asList(rolesFrom.split("\\s*,\\s*"));
-        RoleDao roleDao = new RoleDaoImpl();
-        Set<Role> roles = new HashSet<>();
-        for (String roleId : roleIds) {
-            roles.add(roleDao.findOne(Long.valueOf(roleId))); // создадим Set с одним значением
-        }
-        this.roles = roles;
-    }*/
-
     public void setRoles(String roles) {
         this.roles = new HashSet<>();
     }

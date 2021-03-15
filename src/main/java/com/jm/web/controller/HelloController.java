@@ -16,10 +16,10 @@ import java.util.*;
 @Controller
 public class HelloController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @GetMapping(value = {"/", "/index"})
     public String index() {

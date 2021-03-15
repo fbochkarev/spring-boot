@@ -15,9 +15,6 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager em;
 
-    @Autowired
-    private RoleDao roleDao;
-
     @Override
     public void add(User user) {
         if (user.getPassword() != null) {
@@ -33,17 +30,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(User user) {
-        em.merge(user);
-    }
-
-    @Override
     public User getUserById(long id) {
         return em.find(User.class, id);
     }
 
     @Override
-    public List listUsers() {
+    public List<User> listUsers() {
         return em.createQuery("from User").getResultList();
     }
 
@@ -54,10 +46,5 @@ public class UserDaoImpl implements UserDao {
                 setParameter("username", username).getSingleResult();
         System.out.println("User_role: - " + user.getRoles());
         return user;
-    }
-
-    @Override
-    public List getUserFromUserList(String username) {
-        return em.createQuery("SELECT u from User u WHERE u.username = :username").getResultList();
     }
 }
